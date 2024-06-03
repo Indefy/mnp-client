@@ -1,20 +1,42 @@
+@import "../pages/_variables";
+
 .navbar {
-	background: #2196f3;
-	padding: 10px 20px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: $primary-color;
+	color: $button-text-color;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	.logo {
-		font-size: 1.5rem;
-		color: #fff;
+	padding: $spacing-unit;
+	z-index: 1000;
+
+	.navbar__brand {
+		font-family: $font-family-heading;
+		font-size: 24px;
 	}
-	.nav-links {
-		a {
-			color: #fff;
-			margin-left: 20px;
+
+	.navbar__menu {
+		position: absolute;
+		right: 100;
+		display: flex;
+		align-items: center;
+	}
+
+	.navbar__menu__item {
+		margin-left: $spacing-unit * 2;
+
+		.navbar__menu__item__link {
+			color: $button-text-color;
 			text-decoration: none;
+			padding: $spacing-unit;
+			border-radius: $spacing-unit / 2;
+
+			&.active,
 			&:hover {
-				text-decoration: underline;
+				background-color: rgba(255, 255, 255, 0.2);
 			}
 		}
 	}

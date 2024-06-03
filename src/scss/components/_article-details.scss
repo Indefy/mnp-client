@@ -1,34 +1,47 @@
-// src/scss/components/_article-details.scss
-.article-detail {
-	.title {
-		font-size: 2rem;
-		margin-bottom: 0.5rem;
+@import "../pages/_variables";
+
+.article-details {
+	background-color: #fff;
+	border: 1px solid $border-color;
+	border-radius: $spacing-unit;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	margin-bottom: $spacing-unit * 4;
+	padding: $spacing-unit * 3;
+
+	.article-details__title {
+		font-family: $font-family-heading;
+		color: $heading-color;
+		margin-bottom: $spacing-unit * 2;
 	}
-	.content {
-		font-size: 1.25rem;
-		margin-bottom: 1rem;
+
+	.article-details__content {
+		color: $text-color;
+		margin-bottom: $spacing-unit * 3;
 	}
-	.author {
-		font-size: 0.875rem;
-		color: gray;
-	}
-	.buttons {
-		margin-top: 1rem;
-		button {
-			margin-right: 1rem;
+
+	.article-details__footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.article-details__author {
+			font-size: 14px;
+			color: $text-color;
+		}
+
+		.article-details__date {
+			font-size: 12px;
+			color: $text-color;
 		}
 	}
-	.comments {
-		margin-top: 2rem;
-		.comment {
-			margin-bottom: 1rem;
-			.comment-author {
-				font-weight: bold;
-			}
-			.comment-date {
-				font-size: 0.875rem;
-				color: gray;
-			}
+
+	.article-details__comments {
+		margin-top: $spacing-unit * 4;
+
+		.article-details__comment {
+			border-top: 1px solid $border-color;
+			padding-top: $spacing-unit;
+			margin-top: $spacing-unit;
 		}
 	}
 }

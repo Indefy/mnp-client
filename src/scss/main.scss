@@ -1,20 +1,57 @@
-@import "variables";
-@import "base/reset";
-@import "components/navbar";
-@import "components/articles";
-@import "components/article-details";
-@import "components/create-article";
-@import "pages/home";
-@import "pages/profile";
-@import "components/sidebar";
+@import "./base/_reset";
+@import "./pages/variables";
+@import "./components/_article-card";
+@import "./components/_article-details";
+@import "./components/_articles";
+@import "./components/_create-article";
+@import "./components/_navbar";
+@import "./components/_sidebar";
 
-.app {
-	display: flex;
+body {
+	font-family: $font-family-base;
+	background-color: $background-color;
+	color: $text-color;
+	margin: 0;
+	padding: 0;
 }
 
-.main-content {
-	margin-left: 250px;
-	padding: 20px;
-	width: 100%;
-	margin-left: 7vw;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: $font-family-heading;
+	color: $heading-color;
+}
+
+a {
+	color: $primary-color;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+button {
+	background-color: $button-bg-color;
+	color: $button-text-color;
+	border: none;
+	padding: $spacing-unit * 2 $spacing-unit * 3;
+	cursor: pointer;
+	border-radius: $spacing-unit / 2;
+	font-family: $font-family-base;
+
+	&:hover {
+		background-color: darken($button-bg-color, 10%);
+	}
+}
+
+input,
+textarea {
+	border: 1px solid $input-border-color;
+	padding: $spacing-unit * 2;
+	font-family: $font-family-base;
+	border-radius: $spacing-unit / 2;
 }

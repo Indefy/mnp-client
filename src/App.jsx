@@ -17,9 +17,12 @@ function App() {
 		<Router>
 			<AuthProvider>
 				<div className="app">
+					<Navbar />
 					<Sidebar />
-					<div className="main-content">
-						<Navbar />
+					<div
+						className="main-content"
+						style={{ marginLeft: "240px", marginTop: "64px", padding: "20px" }}
+					>
 						<Routes>
 							<Route path="/" element={<Articles />} />
 							<Route path="/signup" element={<SignUp />} />

@@ -1,42 +1,21 @@
+@import "../pages/_variables";
+
 .sidebar {
-	background-color: #f8f9fa;
-	width: 250px;
+	background-color: $secondary-color;
 	height: 100vh;
 	position: fixed;
-	top: 0;
-	left: 0;
-	padding: 20px;
-	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	transition: width 0.3s;
-
-	&__logo {
-		width: 150px;
-		margin-bottom: 20px;
+	width: 200px;
+	.sidebar__logo {
+		margin: 20px;
 	}
-
-	&__menu {
-		list-style: none;
-		padding: 0;
-		width: 100%;
-
-		&__item {
-			margin-bottom: 10px;
-
-			&__link {
-				text-decoration: none;
-				color: #333;
-				font-weight: bold;
-				padding: 10px;
-				border-radius: 5px;
-				display: block;
-				text-align: center;
-
-				&:hover {
-					background-color: #e9ecef;
-				}
+	.sidebar__menu {
+		margin-top: 20px;
+		.sidebar__menu__item {
+			.MuiListItemIcon-root {
+				color: #fff;
+			}
+			.MuiListItemText-root {
+				color: #fff;
 			}
 		}
 	}

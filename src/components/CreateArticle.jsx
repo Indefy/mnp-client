@@ -31,6 +31,7 @@ function CreateArticle() {
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
 	const [category, setCategory] = useState("");
+	const [image, setImage] = useState("");
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -38,7 +39,7 @@ function CreateArticle() {
 			const token = Cookies.get("authToken");
 			await axios.post(
 				"/articles",
-				{ title, content, category },
+				{ title, content, category, image },
 				{
 					headers: {
 						Authorization: `Bearer ${token}`,
@@ -70,6 +71,13 @@ function CreateArticle() {
 					required
 					multiline
 					rows={4}
+					fullWidth
+					margin="normal"
+				/>
+				<TextField
+					label="Image URL"
+					value={image}
+					onChange={(e) => setImage(e.target.value)}
 					fullWidth
 					margin="normal"
 				/>

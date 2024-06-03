@@ -5,6 +5,7 @@ import {
 	Typography,
 	Card,
 	CardContent,
+	CardMedia,
 	Chip,
 	Button,
 } from "@mui/material";
@@ -34,6 +35,12 @@ function Articles() {
 			{articles.length > 0 ? (
 				articles.map((article) => (
 					<Card key={article._id} sx={{ marginTop: 2, padding: 2 }}>
+						<CardMedia
+							component="img"
+							height="140"
+							image={article.image || "/default-image.jpg"}
+							alt={article.title}
+						/>
 						<CardContent>
 							<Typography variant="h5">{article.title}</Typography>
 							<Typography>{article.content}</Typography>

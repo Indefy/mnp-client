@@ -1,0 +1,11 @@
+@import "../pages/_variables";
+
+.articles {
+	margin-left: 220px;
+	padding: 20px;
+	.MuiCard-root {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+}
