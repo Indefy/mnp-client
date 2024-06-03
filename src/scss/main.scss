@@ -1,0 +1,20 @@
+@import "variables";
+@import "base/reset";
+@import "components/navbar";
+@import "components/articles";
+@import "components/article-details";
+@import "components/create-article";
+@import "pages/home";
+@import "pages/profile";
+@import "components/sidebar";
+
+.app {
+	display: flex;
+}
+
+.main-content {
+	margin-left: 250px;
+	padding: 20px;
+	width: 100%;
+	margin-left: 7vw;
+}

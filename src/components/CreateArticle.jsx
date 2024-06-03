@@ -12,6 +12,7 @@ import {
 	styled,
 } from "@mui/material";
 import Cookies from "js-cookie";
+import "../scss/components/_create-article.scss";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
 	marginTop: theme.spacing(4),

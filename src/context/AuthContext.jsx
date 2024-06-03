@@ -10,6 +10,7 @@ export const AuthProvider = ({ children, navigate }) => {
 	useEffect(() => {
 		const fetchUser = async () => {
 			const token = Cookies.get("authToken");
+			console.log("Token from cookies:", token); // Log the token
 			if (token) {
 				try {
 					const { data } = await axios.get("/users/me", {

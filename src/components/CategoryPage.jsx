@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../api/axios";
+import { useParams } from "react-router-dom";
 import {
 	Container,
 	Typography,
@@ -9,28 +9,41 @@ import {
 	Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import "../scss/components/_articles.scss";
+import { fetchArticlesByCategory } from "../api/api";
 
-function Articles() {
+const CategoryPage = () => {
+	const { category } = useParams();
 	const [articles, setArticles] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
 
 	useEffect(() => {
 		const fetchArticles = async () => {
 			try {
-				const { data } = await axios.get("/articles");
-				console.log("Fetched articles:", data);
-				setArticles(data);
-			} catch (error) {
-				console.error("Error fetching articles:", error);
+				setLoading(true);
+				const fetchedArticles = await fetchArticlesByCategory(category);
+				console.log("Fetched Articles:", fetchedArticles);
+				setArticles(fetchedArticles);
+			} catch (err) {
+				setError(err.message);
+			} finally {
+				setLoading(false);
 			}
 		};
-
 		fetchArticles();
-	}, []);
+	}, [category]);
+
+	if (loading) {
+		return <div>Loading...</div>;
+	}
+
+	if (error) {
+		return <div>Error: {error}</div>;
+	}
 
 	return (
 		<Container sx={{ marginTop: 4 }}>
-			<Typography variant="h4">Articles</Typography>
+			<Typography variant="h4">Articles in {category}</Typography>
 			{articles.length > 0 ? (
 				articles.map((article) => (
 					<Card key={article._id} sx={{ marginTop: 2, padding: 2 }}>
@@ -55,10 +68,10 @@ function Articles() {
 					</Card>
 				))
 			) : (
-				<Typography>No articles found.</Typography>
+				<Typography>No articles found in this category.</Typography>
 			)}
 		</Container>
 	);
-}
+};
 
-export default Articles;
+export default CategoryPage;

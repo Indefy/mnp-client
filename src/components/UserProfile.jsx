@@ -9,6 +9,7 @@ import {
 	ListItemText,
 } from "@mui/material";
 import { AuthContext } from "../context/AuthContext";
+import Cookies from "js-cookie";
 
 function UserProfile() {
 	const { user } = useContext(AuthContext);
@@ -18,7 +19,11 @@ function UserProfile() {
 		const fetchProfile = async () => {
 			if (user) {
 				try {
-					const { data } = await axios.get(`/users/${user.userId}`);
+					const { data } = await axios.get(`/users/me`, {
+						headers: {
+							Authorization: `Bearer ${Cookies.get("authToken")}`,
+						},
+					});
 					setProfile(data);
 				} catch (error) {
 					console.error("Error fetching profile:", error);

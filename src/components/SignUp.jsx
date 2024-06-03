@@ -4,10 +4,12 @@ import { TextField, Button, Container, Typography } from "@mui/material";
 import { AuthContext } from "../context/AuthContext.jsx";
 
 function SignUp() {
+	//  States for the SignUp logic handling
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const { login } = useContext(AuthContext);
 
+	//  Handle the submission for the SignUp page logic
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {

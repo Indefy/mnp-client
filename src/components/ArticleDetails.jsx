@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { AuthContext } from "../context/AuthContext.jsx";
 import Cookies from "js-cookie";
+import "../scss/components/_article-details.scss";
 
 function ArticleDetail() {
 	const { id } = useParams();
