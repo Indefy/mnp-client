@@ -1,4 +1,4 @@
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+import axios from "./axios";
 
 export const fetchArticlesByCategory = async (category) => {
 	const capitalizeFirstLetter = (string) => {
@@ -8,12 +8,11 @@ export const fetchArticlesByCategory = async (category) => {
 	const capitalizedCategory = capitalizeFirstLetter(category);
 
 	try {
-		const response = await fetch(
-			`${API_URL}/articles?category=${capitalizedCategory}`
+		const response = await axios.get(
+			`/articles?category=${capitalizedCategory}`
 		);
-		const data = await response.json();
-		console.log("API Response:", data);
-		return data || [];
+		console.log("API Response:", response.data);
+		return response.data || [];
 	} catch (error) {
 		console.error("Error fetching articles:", error);
 		throw error;
@@ -22,10 +21,9 @@ export const fetchArticlesByCategory = async (category) => {
 
 export const fetchCategories = async () => {
 	try {
-		const response = await fetch(`${API_URL}/articles/categories`);
-		const data = await response.json();
-		console.log("Fetched categories:", data);
-		return data || [];
+		const response = await axios.get("/articles/categories");
+		console.log("Fetched categories:", response.data);
+		return response.data || [];
 	} catch (error) {
 		console.error("Error fetching categories:", error);
 		throw error;
