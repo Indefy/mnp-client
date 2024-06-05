@@ -1,5 +1,5 @@
 {
-	"name": "anime-client",
+	"name": "mnp-client",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
@@ -20,12 +20,14 @@
 		"react-router-dom": "^6.23.1",
 		"react-scripts": "5.0.1",
 		"uuid": "^9.0.1",
-		"web-vitals": "^2.1.4"
+		"web-vitals": "^14.2.3",
+		"serve": "^14.0.1"
 	},
 	"scripts": {
-		"start": "react-scripts start",
 		"build-css": "sass src/scss/main.scss src/scss/main.css",
 		"build": "npm install && npm run build-css && react-scripts build",
+		"start": "react-scripts start",
+		"serve": "serve -s build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},
