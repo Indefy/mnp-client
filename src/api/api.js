@@ -1,3 +1,5 @@
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+
 export const fetchArticlesByCategory = async (category) => {
 	const capitalizeFirstLetter = (string) => {
 		return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -7,7 +9,7 @@ export const fetchArticlesByCategory = async (category) => {
 
 	try {
 		const response = await fetch(
-			`http://localhost:5000/api/articles?category=${capitalizedCategory}`
+			`${API_URL}/articles?category=${capitalizedCategory}`
 		);
 		const data = await response.json();
 		console.log("API Response:", data);
@@ -20,9 +22,7 @@ export const fetchArticlesByCategory = async (category) => {
 
 export const fetchCategories = async () => {
 	try {
-		const response = await fetch(
-			`http://localhost:5000/api/articles/categories`
-		);
+		const response = await fetch(`${API_URL}/articles/categories`);
 		const data = await response.json();
 		console.log("Fetched categories:", data);
 		return data || [];
