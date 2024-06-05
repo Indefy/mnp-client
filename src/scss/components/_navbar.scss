@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import "../pages/_variables";
 
 .navbar {
@@ -26,13 +28,13 @@
 	}
 
 	.navbar__menu__item {
-		margin-left: $spacing-unit * 2;
+		margin-left: math.div($spacing-unit, 2);
 
 		.navbar__menu__item__link {
 			color: $button-text-color;
 			text-decoration: none;
 			padding: $spacing-unit;
-			border-radius: $spacing-unit / 2;
+			border-radius: math.div($spacing-unit, 2);
 
 			&.active,
 			&:hover {

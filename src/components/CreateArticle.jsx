@@ -12,6 +12,7 @@ import {
 	styled,
 } from "@mui/material";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 import "../scss/components/_create-article.scss";
 
 const StyledContainer = styled(Container)(({ theme }) => ({
@@ -32,6 +33,7 @@ function CreateArticle() {
 	const [content, setContent] = useState("");
 	const [category, setCategory] = useState("");
 	const [image, setImage] = useState("");
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -47,6 +49,8 @@ function CreateArticle() {
 				}
 			);
 			alert("Article created");
+			navigate("/");
+			window.location.reload();
 		} catch (error) {
 			console.error("Error creating article:", error);
 		}

@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import "../pages/_variables";
 
 .article-card {
@@ -5,18 +7,26 @@
 	border: 1px solid $border-color;
 	border-radius: $spacing-unit;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-	margin-bottom: $spacing-unit * 4;
-	padding: $spacing-unit * 3;
+	margin-bottom: math.div($spacing-unit, 4);
+	padding: math.div($spacing-unit, 3);
+	transition: transform 0.3s, box-shadow 0.3s;
+
+	&:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	}
 
 	.article-card__title {
 		font-family: $font-family-heading;
 		color: $heading-color;
-		margin-bottom: $spacing-unit * 2;
+		margin-bottom: math.div($spacing-unit, 2);
+		font-size: 1.25rem;
+		font-weight: bold;
 	}
 
 	.article-card__content {
 		color: $text-color;
-		margin-bottom: $spacing-unit * 3;
+		margin-bottom: math.div($spacing-unit, 3);
 	}
 
 	.article-card__footer {

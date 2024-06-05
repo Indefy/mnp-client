@@ -17,3 +17,17 @@ export const fetchArticlesByCategory = async (category) => {
 		throw error;
 	}
 };
+
+export const fetchCategories = async () => {
+	try {
+		const response = await fetch(
+			`http://localhost:5000/api/articles/categories`
+		);
+		const data = await response.json();
+		console.log("Fetched categories:", data);
+		return data || [];
+	} catch (error) {
+		console.error("Error fetching categories:", error);
+		throw error;
+	}
+};
