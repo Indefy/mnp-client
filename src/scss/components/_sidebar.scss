@@ -1,22 +1,22 @@
 @import "../pages/_variables";
-
 .sidebar {
-	background-color: $secondary-color;
-	height: 100vh;
-	position: fixed;
-	width: 200px;
-	.sidebar__logo {
-		margin: 20px;
+	width: 240px;
+	flex-shrink: 0;
+
+	.MuiDrawer-paper {
+		border: 3px solid purple;
+		top: 64px;
+		width: 240px;
+		box-sizing: border-box;
 	}
-	.sidebar__menu {
-		margin-top: 20px;
-		.sidebar__menu__item {
-			.MuiListItemIcon-root {
-				color: #fff;
-			}
-			.MuiListItemText-root {
-				color: #fff;
-			}
-		}
+}
+
+@media (max-width: 768px) {
+	.sidebar {
+		display: none;
+	}
+
+	.MuiDrawer-paper {
+		width: 100%;
 	}
 }

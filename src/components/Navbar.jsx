@@ -7,12 +7,15 @@ import {
 	MenuItem,
 	IconButton,
 	InputBase,
+	Box,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import SearchIcon from "@mui/icons-material/Search";
+import MenuIcon from "@mui/icons-material/Menu";
 import { AuthContext } from "../context/AuthContext.jsx";
+import { useMediaQuery } from "react-responsive";
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -53,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-function Navbar() {
+function Navbar({ handleDrawerToggle }) {
 	const { user, logout } = useContext(AuthContext);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -65,9 +68,25 @@ function Navbar() {
 		setAnchorEl(null);
 	};
 
+	const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
 	return (
-		<AppBar position="fixed">
+		<AppBar
+			position="fixed"
+			sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+		>
 			<Toolbar>
+				{isMobile && (
+					<IconButton
+						color="inherit"
+						aria-label="open drawer"
+						edge="start"
+						onClick={handleDrawerToggle}
+						sx={{ marginRight: 2 }}
+					>
+						<MenuIcon />
+					</IconButton>
+				)}
 				<Search>
 					<SearchIconWrapper>
 						<SearchIcon />
@@ -77,69 +96,78 @@ function Navbar() {
 						inputProps={{ "aria-label": "search" }}
 					/>
 				</Search>
-				<Button color="inherit" component={Link} to="/">
-					Home
-				</Button>
-				{user ? (
+				<Box sx={{ flexGrow: 1 }} />
+				{!isMobile && (
 					<>
-						<IconButton
-							edge="end"
-							aria-label="account of current user"
-							aria-controls="menu-appbar"
-							aria-haspopup="true"
-							onClick={handleMenu}
-							color="inherit"
-						>
-							<AccountCircle />
-						</IconButton>
-						<Menu
-							id="menu-appbar"
-							anchorEl={anchorEl}
-							anchorOrigin={{
-								vertical: "top",
-								horizontal: "right",
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: "top",
-								horizontal: "right",
-							}}
-							open={Boolean(anchorEl)}
-							onClose={handleClose}
-						>
-							<MenuItem onClick={handleClose} component={Link} to="/profile">
-								Profile
-							</MenuItem>
-							<MenuItem
-								onClick={handleClose}
-								component={Link}
-								to="/my-articles"
-							>
-								My Articles
-							</MenuItem>
-							<MenuItem
-								onClick={() => {
-									logout();
-									handleClose();
-								}}
-							>
-								Logout
-							</MenuItem>
-						</Menu>
-					</>
-				) : (
-					<>
-						<Button color="inherit" component={Link} to="/signin">
-							Sign In
+						<Button color="inherit" component={Link} to="/">
+							Home
 						</Button>
-						<Button color="inherit" component={Link} to="/signup">
-							Sign Up
+						{user ? (
+							<>
+								<IconButton
+									edge="end"
+									aria-label="account of current user"
+									aria-controls="menu-appbar"
+									aria-haspopup="true"
+									onClick={handleMenu}
+									color="inherit"
+								>
+									<AccountCircle />
+								</IconButton>
+								<Menu
+									id="menu-appbar"
+									anchorEl={anchorEl}
+									anchorOrigin={{
+										vertical: "top",
+										horizontal: "right",
+									}}
+									keepMounted
+									transformOrigin={{
+										vertical: "top",
+										horizontal: "right",
+									}}
+									open={Boolean(anchorEl)}
+									onClose={handleClose}
+								>
+									<MenuItem
+										onClick={handleClose}
+										component={Link}
+										to="/profile"
+									>
+										Profile
+									</MenuItem>
+									<MenuItem
+										onClick={handleClose}
+										component={Link}
+										to="/my-articles"
+									>
+										My Articles
+									</MenuItem>
+									<MenuItem
+										onClick={() => {
+											logout();
+											handleClose();
+										}}
+									>
+										Logout
+									</MenuItem>
+								</Menu>
+							</>
+						) : (
+							<>
+								<Button color="inherit" component={Link} to="/signin">
+									Sign In
+								</Button>
+								<Button color="inherit" component={Link} to="/signup">
+									Sign Up
+								</Button>
+							</>
+						)}
+						<Button color="inherit" component={Link} to="/create-article">
+							Create Article
 						</Button>
 					</>
 				)}
-				<Button color="inherit" component={Link} to="/create-article">
-					Create Article
-				</Button>
 			</Toolbar>
 		</AppBar>
 	);
