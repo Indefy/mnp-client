@@ -51,8 +51,11 @@ function Articles() {
 								</Typography>
 								<Chip label={article.category} sx={{ marginTop: 1 }} />
 								<Typography variant="caption">
-									By {article.author.username} on{" "}
-									{new Date(article.date).toLocaleDateString()}
+									By{" "}
+									{article.author && article.author.username
+										? article.author.username
+										: "deleted user"}{" "}
+									on {new Date(article.date).toLocaleDateString()}
 								</Typography>
 								<Button
 									component={Link}
