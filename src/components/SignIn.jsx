@@ -4,13 +4,11 @@ import { AuthContext } from "../context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
 
 function SignIn() {
-	//  States for the login logic handling
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const { login } = useContext(AuthContext);
 	const navigate = useNavigate();
 
-	//  Handle the submission for the Login page logic
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {

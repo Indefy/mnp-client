@@ -4,13 +4,13 @@ import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({ children, navigate }) => {
+export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
 		const fetchUser = async () => {
 			const token = Cookies.get("authToken");
-			console.log("Token from cookies:", token); // Log the token
+			console.log("Token from cookies:", token);
 			if (token) {
 				try {
 					const { data } = await axios.get("/users/me", {
@@ -31,20 +31,26 @@ export const AuthProvider = ({ children, navigate }) => {
 
 	const login = async (username, password) => {
 		try {
-			const { data } = await axios.post("/users/signin", {
-				username,
-				password,
-			});
+			const { data } = await axios.post(
+				"/users/signin",
+				{ username, password },
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+					withCredentials: true,
+				}
+			);
 			console.log("Sign-in response data:", data);
 			Cookies.set("authToken", data.token, { expires: 30 });
 			const userData = await axios.get("/users/me", {
 				headers: {
 					Authorization: `Bearer ${data.token}`,
 				},
+				withCredentials: true,
 			});
 			console.log("Fetched user data after login:", userData.data);
 			setUser(userData.data);
-			navigate("/");
 		} catch (error) {
 			console.error("Error signing in:", error);
 		}
