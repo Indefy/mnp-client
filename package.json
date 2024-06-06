@@ -27,7 +27,7 @@
 	"scripts": {
 		"build-css": "sass src/scss/main.scss src/scss/main.css",
 		"start": "react-scripts start",
-		"build": "npm run build-css && react-scripts build",
+		"build": "npm instal && npm run build-css && react-scripts build",
 		"build:dev": "env-cmd -f .env.development npm run build",
 		"build:prod": "env-cmd -f .env.production npm run build",
 		"serve": "serve -s build",
