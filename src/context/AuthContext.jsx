@@ -42,7 +42,12 @@ export const AuthProvider = ({ children }) => {
 				}
 			);
 			console.log("Sign-in response data:", data);
-			Cookies.set("authToken", data.token, { expires: 30 });
+			// Set the cookie with secure attributes
+			Cookies.set("authToken", data.token, {
+				expires: 30,
+				secure: true,
+				sameSite: "None",
+			});
 			const userData = await axios.get("/users/me", {
 				headers: {
 					Authorization: `Bearer ${data.token}`,
@@ -66,6 +71,7 @@ export const AuthProvider = ({ children }) => {
 					headers: {
 						Authorization: `Bearer ${token}`,
 					},
+					withCredentials: true,
 				}
 			);
 			Cookies.remove("authToken");
