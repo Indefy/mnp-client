@@ -82,7 +82,7 @@ function Navbar({ handleDrawerToggle }) {
 						aria-label="open drawer"
 						edge="start"
 						onClick={handleDrawerToggle}
-						sx={{ marginRight: 2 }}
+						sx={{ marginRight: 5 }}
 					>
 						<MenuIcon />
 					</IconButton>

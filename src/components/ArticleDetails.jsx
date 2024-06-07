@@ -19,6 +19,7 @@ function ArticleDetail() {
 	const { user } = useContext(AuthContext);
 	const [article, setArticle] = useState(null);
 	const [comment, setComment] = useState("");
+	const [error, setError] = useState(null);
 
 	useEffect(() => {
 		const fetchArticle = async () => {
@@ -27,6 +28,7 @@ function ArticleDetail() {
 				setArticle(data);
 			} catch (error) {
 				console.error("Error fetching article:", error);
+				setError("Error fetching article");
 			}
 		};
 
@@ -101,17 +103,38 @@ function ArticleDetail() {
 		}
 	};
 
+	if (error) {
+		return (
+			<Container sx={{ marginTop: 8 }}>
+				<Typography variant="h4" color="error">
+					{error}
+				</Typography>
+			</Container>
+		);
+	}
+
 	if (!article) {
-		return <Typography>Loading...</Typography>;
+		return (
+			<Container sx={{ marginTop: 8 }}>
+				<Typography variant="h4">Loading...</Typography>
+			</Container>
+		);
 	}
 
 	return (
-		<Container>
-			<Typography variant="h4">{article.title}</Typography>
-			<Typography variant="h6">{article.content}</Typography>
+		<Container sx={{ paddingTop: "100px" }}>
+			<Typography variant="h4" gutterBottom>
+				{article.title}
+			</Typography>
+			<Typography variant="body1" paragraph>
+				{article.content}
+			</Typography>
 			<Typography variant="caption">
-				By {article.author.username} on{" "}
-				{new Date(article.date).toLocaleDateString()}
+				By{" "}
+				{article.author && article.author.username
+					? article.author.username
+					: "deleted user"}{" "}
+				on {new Date(article.date).toLocaleDateString()}
 			</Typography>
 			<div>
 				<Button onClick={handleLike}>
@@ -149,9 +172,11 @@ function ArticleDetail() {
 					<ListItem key={comment._id}>
 						<ListItemText
 							primary={comment.content}
-							secondary={`By ${comment.user.username} on ${new Date(
-								comment.date
-							).toLocaleDateString()}`}
+							secondary={`By ${
+								comment.user && comment.user.username
+									? comment.user.username
+									: "deleted user"
+							} on ${new Date(comment.date).toLocaleDateString()}`}
 						/>
 					</ListItem>
 				))}

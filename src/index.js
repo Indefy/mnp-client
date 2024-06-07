@@ -1,23 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "./scss/base/theme";
+import "./scss/main.scss";
 
-// Creating the root element to render the React application
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-// Rendering the application within the root element
 root.render(
 	<React.StrictMode>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</ThemeProvider>
 	</React.StrictMode>
 );
 
-// Measuring performance in the app
-// Pass a function to log results or send to an analytics endpoint.
-// Learn more: https://bit.ly/CRA-vitals
-reportWebVitals(console.log);
+reportWebVitals();

@@ -60,13 +60,29 @@ textarea {
 
 .app {
 	display: flex;
+
 	.main-content {
 		flex-grow: 1;
 		transition: margin-left 0.3s;
-		margin-left: 0;
+		margin-left: 240px;
 
 		@media (max-width: 768px) {
 			margin-left: 0;
+		}
+	}
+
+	.article-details {
+		padding-left: 24px;
+		padding-right: 24px;
+
+		@media (min-width: 600px) {
+			padding-left: 24px;
+			padding-right: 24px;
+		}
+
+		@media (min-width: 1200px) {
+			max-width: 1560px;
+			margin-left: 156px;
 		}
 	}
 }

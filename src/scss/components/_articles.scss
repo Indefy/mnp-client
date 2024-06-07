@@ -4,44 +4,33 @@
 
 .articles-grid {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: 1fr;
 	gap: 30px;
+
+	@media (min-width: 600px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media (min-width: 992px) {
+		grid-template-columns: repeat(3, 1fr);
+	}
 }
 
 .article-card {
 	background-color: #fff;
-	border: 1px solid #ddd;
-	border-radius: 10px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	padding: 20px;
-	transition: transform 0.2s, box-shadow 0.2s;
+	border: 1px solid $border-color;
+	border-radius: $spacing-unit;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	margin-bottom: math.div($spacing-unit, 4);
+	padding: math.div($spacing-unit, 3);
+	transition: transform 0.3s, box-shadow 0.3s;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 
 	&:hover {
-		transform: scale(1.05);
-		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-	}
-
-	.article-content {
-		flex-grow: 1;
-	}
-
-	.article-description {
-		max-height: 150px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.read-more {
-		align-self: flex-end;
-	}
-
-	.MuiCardContent-root {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
+		transform: translateY(-5px);
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	}
 
 	.article-card__title {

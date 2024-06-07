@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
+const drawerWidth = 240;
+
 function Sidebar({ mobileOpen, handleDrawerToggle }) {
 	const drawer = (
 		<div>
@@ -41,7 +43,7 @@ function Sidebar({ mobileOpen, handleDrawerToggle }) {
 	return (
 		<Box
 			component="nav"
-			sx={{ width: { sm: 240 }, flexShrink: { sm: 0 }, position: "absolute" }}
+			sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
 			aria-label="mailbox folders"
 		>
 			<Drawer
@@ -53,7 +55,7 @@ function Sidebar({ mobileOpen, handleDrawerToggle }) {
 				}}
 				sx={{
 					display: { xs: "block", sm: "none" },
-					"& .MuiDrawer-paper": { boxSizing: "border-box", width: 240 },
+					"& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
 				}}
 			>
 				{drawer}
@@ -62,7 +64,7 @@ function Sidebar({ mobileOpen, handleDrawerToggle }) {
 				variant="permanent"
 				sx={{
 					display: { xs: "none", sm: "block" },
-					"& .MuiDrawer-paper": { boxSizing: "border-box", width: 240 },
+					"& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
 				}}
 				open
 			>
