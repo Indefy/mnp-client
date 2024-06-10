@@ -1,5 +1,5 @@
-import axios from "../api/axios";
 import React, { createContext, useState, useEffect } from "react";
+import axios from "../api/axios";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
@@ -8,9 +8,8 @@ export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
-		const fetchUser = async () => {
+		const checkAuthToken = async () => {
 			const token = Cookies.get("authToken");
-			console.log("Token from cookies:", token);
 			if (token) {
 				try {
 					const { data } = await axios.get("/users/me", {
@@ -18,15 +17,15 @@ export const AuthProvider = ({ children }) => {
 							Authorization: `Bearer ${token}`,
 						},
 					});
-					console.log("Fetched user data:", data);
 					setUser(data);
 				} catch (error) {
 					console.error("Error fetching user:", error);
+					Cookies.remove("authToken"); // Remove invalid token
 				}
 			}
 		};
 
-		fetchUser();
+		checkAuthToken();
 	}, []);
 
 	const login = async (username, password) => {
@@ -44,15 +43,13 @@ export const AuthProvider = ({ children }) => {
 			if (status !== 200) {
 				throw new Error("Login failed");
 			}
-			console.log("Sign-in response data:", data);
-			Cookies.set("authToken", data.token, { expires: 30 });
+			Cookies.set("authToken", data.token, { expires: 30 }); // Set token with expiration
 			const userData = await axios.get("/users/me", {
 				headers: {
 					Authorization: `Bearer ${data.token}`,
 				},
 				withCredentials: true,
 			});
-			console.log("Fetched user data after login:", userData.data);
 			setUser(userData.data);
 		} catch (error) {
 			console.error("Error signing in:", error);

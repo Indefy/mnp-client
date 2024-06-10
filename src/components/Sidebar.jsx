@@ -13,6 +13,14 @@ import { Link } from "react-router-dom";
 const drawerWidth = 240;
 
 function Sidebar({ mobileOpen, handleDrawerToggle }) {
+	const categories = [
+		"technology",
+		"health",
+		"finance",
+		"entertainment",
+		"sports",
+	];
+
 	const drawer = (
 		<div>
 			<Toolbar />
@@ -21,21 +29,18 @@ function Sidebar({ mobileOpen, handleDrawerToggle }) {
 				<ListItem button component={Link} to="/">
 					<ListItemText primary="Home" />
 				</ListItem>
-				<ListItem button component={Link} to="/technology">
-					<ListItemText primary="Technology" />
-				</ListItem>
-				<ListItem button component={Link} to="/health">
-					<ListItemText primary="Health" />
-				</ListItem>
-				<ListItem button component={Link} to="/finance">
-					<ListItemText primary="Finance" />
-				</ListItem>
-				<ListItem button component={Link} to="/entertainment">
-					<ListItemText primary="Entertainment" />
-				</ListItem>
-				<ListItem button component={Link} to="/sports">
-					<ListItemText primary="Sports" />
-				</ListItem>
+				{categories.map((category) => (
+					<ListItem
+						button
+						component={Link}
+						to={`/category/${category}`}
+						key={category}
+					>
+						<ListItemText
+							primary={category.charAt(0).toUpperCase() + category.slice(1)}
+						/>
+					</ListItem>
+				))}
 			</List>
 		</div>
 	);

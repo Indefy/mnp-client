@@ -29,3 +29,14 @@ export const fetchCategories = async () => {
 		throw error;
 	}
 };
+
+export const fetchArticlesBySearchQuery = async (query) => {
+	try {
+		const response = await axios.get(`/articles?search=${query}`);
+		console.log("Search API Response:", response.data);
+		return response.data || [];
+	} catch (error) {
+		console.error("Error fetching search results:", error);
+		throw error;
+	}
+};

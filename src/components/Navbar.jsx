@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
 	AppBar,
 	Toolbar,
@@ -16,6 +16,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AuthContext } from "../context/AuthContext.jsx";
 import { useMediaQuery } from "react-responsive";
+import { fetchArticlesBySearchQuery } from "../api/api"; // Ensure this API function exists
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -56,9 +57,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-function Navbar({ handleDrawerToggle }) {
+function Navbar({ handleDrawerToggle, setSearchResults, setSearchQuery }) {
 	const { user, logout } = useContext(AuthContext);
 	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [searchInput, setSearchInput] = useState("");
 
 	const handleMenu = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -69,6 +71,23 @@ function Navbar({ handleDrawerToggle }) {
 	};
 
 	const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
+	const handleSearchChange = async (event) => {
+		const query = event.target.value;
+		setSearchInput(query);
+		setSearchQuery(query);
+
+		if (query) {
+			try {
+				const results = await fetchArticlesBySearchQuery(query);
+				setSearchResults(results);
+			} catch (error) {
+				console.error("Error fetching search results:", error);
+			}
+		} else {
+			setSearchResults([]); // Clear search results when query is empty
+		}
+	};
 
 	return (
 		<AppBar
@@ -94,6 +113,8 @@ function Navbar({ handleDrawerToggle }) {
 					<StyledInputBase
 						placeholder="Search…"
 						inputProps={{ "aria-label": "search" }}
+						value={searchInput}
+						onChange={handleSearchChange}
 					/>
 				</Search>
 				<Box sx={{ flexGrow: 1 }} />
