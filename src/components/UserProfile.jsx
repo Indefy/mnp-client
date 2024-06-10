@@ -30,8 +30,8 @@ function UserProfile() {
 						},
 					});
 					setProfile(data);
-					setUsername(data.username);
-					setEmail(data.email);
+					setUsername(data.username || ""); // Ensure controlled input
+					setEmail(data.email || ""); // Ensure controlled input
 				} catch (error) {
 					console.error("Error fetching profile:", error);
 				}
@@ -41,7 +41,8 @@ function UserProfile() {
 		fetchProfile();
 	}, [user]);
 
-	const handleUpdate = async () => {
+	const handleUpdate = async (e) => {
+		e.preventDefault();
 		try {
 			const token = Cookies.get("authToken");
 			const { data } = await axios.put(
@@ -68,7 +69,7 @@ function UserProfile() {
 		<Container>
 			<Avatar>{profile.username[0]}</Avatar>
 			<Typography variant="h4">Profile</Typography>
-			<form>
+			<form onSubmit={handleUpdate}>
 				<TextField
 					label="Username"
 					value={username}
@@ -76,23 +77,13 @@ function UserProfile() {
 					fullWidth
 					margin="normal"
 				/>
-				<TextField
-					label="Email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					fullWidth
-					margin="normal"
-				/>
-				<Button variant="contained" color="primary" onClick={handleUpdate}>
+				<Button type="submit" variant="contained" color="primary">
 					Update Profile
 				</Button>
 			</form>
 			<List>
 				<ListItem>
 					<ListItemText primary="Username" secondary={profile.username} />
-				</ListItem>
-				<ListItem>
-					<ListItemText primary="Email" secondary={profile.email} />
 				</ListItem>
 			</List>
 		</Container>

@@ -9,6 +9,12 @@
 @import "./components/_navbar";
 @import "./components/_sidebar";
 
+main {
+	display: flex;
+	margin: 13vh;
+	justify-content: center;
+	align-items: center;
+}
 body {
 	font-family: $font-family-base;
 	background-color: $background-color;
@@ -60,7 +66,6 @@ textarea {
 
 .app {
 	display: flex;
-
 	.main-content {
 		flex-grow: 1;
 		transition: margin-left 0.3s;

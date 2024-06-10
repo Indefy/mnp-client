@@ -31,6 +31,7 @@ function SignIn() {
 			<Typography variant="h4">Sign In</Typography>
 			<form onSubmit={handleSubmit}>
 				<TextField
+					id="username"
 					label="Username"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
@@ -39,6 +40,7 @@ function SignIn() {
 					margin="normal"
 				/>
 				<TextField
+					id="password"
 					label="Password"
 					type="password"
 					value={password}

@@ -14,9 +14,9 @@ import { Link } from "react-router-dom";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
-import { AuthContext } from "../context/AuthContext.jsx";
+import { AuthContext } from "../context/AuthContext";
 import { useMediaQuery } from "react-responsive";
-import { fetchArticlesBySearchQuery } from "../api/api"; // Ensure this API function exists
+import { fetchArticlesBySearchQuery } from "../api/api";
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -59,7 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function Navbar({ handleDrawerToggle, setSearchResults, setSearchQuery }) {
 	const { user, logout } = useContext(AuthContext);
-	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [anchorEl, setAnchorEl] = useState(null);
 	const [searchInput, setSearchInput] = useState("");
 
 	const handleMenu = (event) => {
@@ -75,17 +75,19 @@ function Navbar({ handleDrawerToggle, setSearchResults, setSearchQuery }) {
 	const handleSearchChange = async (event) => {
 		const query = event.target.value;
 		setSearchInput(query);
-		setSearchQuery(query);
+		if (typeof setSearchQuery === "function") {
+			setSearchQuery(query);
+		}
 
-		if (query) {
+		if (query && typeof setSearchResults === "function") {
 			try {
 				const results = await fetchArticlesBySearchQuery(query);
 				setSearchResults(results);
 			} catch (error) {
 				console.error("Error fetching search results:", error);
 			}
-		} else {
-			setSearchResults([]); // Clear search results when query is empty
+		} else if (typeof setSearchResults === "function") {
+			setSearchResults([]);
 		}
 	};
 
@@ -120,6 +122,17 @@ function Navbar({ handleDrawerToggle, setSearchResults, setSearchQuery }) {
 				<Box sx={{ flexGrow: 1 }} />
 				{!isMobile && (
 					<>
+						{user && (
+							<Button
+								color="inherit"
+								onClick={() => {
+									logout();
+									handleClose();
+								}}
+							>
+								Logout
+							</Button>
+						)}
 						<Button color="inherit" component={Link} to="/">
 							Home
 						</Button>

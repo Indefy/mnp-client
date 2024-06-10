@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 					setUser(data);
 				} catch (error) {
 					console.error("Error fetching user:", error);
-					Cookies.remove("authToken"); // Remove invalid token
+					Cookies.remove("authToken");
 				}
 			}
 		};
@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }) => {
 			if (status !== 200) {
 				throw new Error("Login failed");
 			}
+			console.log("Login successful, setting authToken");
 			Cookies.set("authToken", data.token, { expires: 30 }); // Set token with expiration
 			const userData = await axios.get("/users/me", {
 				headers: {

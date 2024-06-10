@@ -81,28 +81,6 @@ function ArticleDetail() {
 		}
 	};
 
-	const handleBookmark = async () => {
-		if (!user) {
-			alert("Please sign in to bookmark the article.");
-			return;
-		}
-		try {
-			const token = Cookies.get("authToken");
-			const { data } = await axios.post(
-				`/articles/${id}/bookmark`,
-				{},
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			);
-			setArticle(data);
-		} catch (error) {
-			console.error("Error bookmarking article:", error);
-		}
-	};
-
 	if (error) {
 		return (
 			<Container sx={{ marginTop: 8 }}>
@@ -140,12 +118,6 @@ function ArticleDetail() {
 				<Button onClick={handleLike}>
 					{user && article.likes.includes(user.userId) ? "Unlike" : "Like"} (
 					{article.likes.length})
-				</Button>
-				<Button onClick={handleBookmark}>
-					{user && article.bookmarks.includes(user.userId)
-						? "Remove Bookmark"
-						: "Bookmark"}{" "}
-					({article.bookmarks.length})
 				</Button>
 			</div>
 			<form onSubmit={handleCommentSubmit}>
