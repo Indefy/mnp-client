@@ -15,7 +15,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AuthContext } from "../context/AuthContext";
-import { useMediaQuery } from "react-responsive";
+import { useMediaQuery } from "@mui/material";
+import { useDrawer } from "../context/DrawerContext";
 import { fetchArticlesBySearchQuery } from "../api/api";
 
 const Search = styled("div")(({ theme }) => ({
@@ -57,10 +58,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-function Navbar({ handleDrawerToggle, setSearchResults, setSearchQuery }) {
+function Navbar({ setSearchResults, setSearchQuery }) {
 	const { user, logout } = useContext(AuthContext);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [searchInput, setSearchInput] = useState("");
+	const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+	const { handleDrawerToggle } = useDrawer();
 
 	const handleMenu = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -69,8 +72,6 @@ function Navbar({ handleDrawerToggle, setSearchResults, setSearchQuery }) {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
-
-	const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
 	const handleSearchChange = async (event) => {
 		const query = event.target.value;
@@ -122,17 +123,6 @@ function Navbar({ handleDrawerToggle, setSearchResults, setSearchQuery }) {
 				<Box sx={{ flexGrow: 1 }} />
 				{!isMobile && (
 					<>
-						{user && (
-							<Button
-								color="inherit"
-								onClick={() => {
-									logout();
-									handleClose();
-								}}
-							>
-								Logout
-							</Button>
-						)}
 						<Button color="inherit" component={Link} to="/">
 							Home
 						</Button>

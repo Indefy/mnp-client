@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
 				throw new Error("Login failed");
 			}
 			console.log("Login successful, setting authToken");
-			Cookies.set("authToken", data.token, { expires: 30 }); // Set token with expiration
+			Cookies.set("authToken", data.token, { expires: 30 });
 			const userData = await axios.get("/users/me", {
 				headers: {
 					Authorization: `Bearer ${data.token}`,
