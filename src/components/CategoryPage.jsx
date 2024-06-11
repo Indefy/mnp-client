@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {
 	Container,
 	Typography,
@@ -10,8 +10,7 @@ import {
 	CircularProgress,
 	Alert,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import { fetchArticlesByCategory } from "../api/api";
+import { fetchArticlesByCategory, fetchAllArticles } from "../api/api";
 
 const CategoryPage = () => {
 	const { category } = useParams();
@@ -23,9 +22,9 @@ const CategoryPage = () => {
 		const fetchArticles = async () => {
 			try {
 				setLoading(true);
-				const fetchedArticles = await fetchArticlesByCategory(
-					category.toLowerCase()
-				);
+				const fetchedArticles = category
+					? await fetchArticlesByCategory(category)
+					: await fetchAllArticles();
 				console.log("Fetched Articles:", fetchedArticles);
 				setArticles(fetchedArticles);
 			} catch (err) {
@@ -63,36 +62,62 @@ const CategoryPage = () => {
 	return (
 		<Container sx={{ marginTop: 4 }}>
 			<Typography variant="h4" gutterBottom>
-				Articles in {category}
+				{category
+					? `Articles in ${
+							category.charAt(0).toUpperCase() + category.slice(1)
+					  }`
+					: "All Articles"}
 			</Typography>
-			{articles.length > 0 ? (
-				articles.map((article) => (
-					<Card key={article._id} sx={{ marginTop: 2, padding: 2 }}>
-						<CardContent>
-							<Typography variant="h5" gutterBottom>
-								{article.title}
-							</Typography>
-							<Typography paragraph>{article.content}</Typography>
-							<Chip label={article.category} sx={{ marginTop: 1 }} />
-							<Typography variant="caption" display="block" gutterBottom>
-								By {article.author ? article.author.username : "Deleted user"}{" "}
-								on {new Date(article.date).toLocaleDateString()}
-							</Typography>
-							<Button
-								component={Link}
-								to={`/articles/${article._id}`}
-								sx={{ marginTop: 2 }}
-								variant="contained"
-								color="primary"
-							>
-								Read More
-							</Button>
-						</CardContent>
-					</Card>
-				))
-			) : (
-				<Typography>No articles found in this category.</Typography>
-			)}
+			<div className="articles-container">
+				{articles.length > 0 ? (
+					articles.map((article) => {
+						console.log("Article Image URL:", article.image);
+						return (
+							<Card key={article._id} className="article-card">
+								<img
+									src={article.image || "default-image.jpg"}
+									alt={article.title}
+									className="article-image"
+									onError={(e) => {
+										e.target.onerror = null;
+										e.target.src = "default-image.jpg";
+									}}
+								/>
+								<CardContent className="article-content">
+									<Typography variant="h5" gutterBottom>
+										{article.title}
+									</Typography>
+									<Typography paragraph>{article.content}</Typography>
+									<div className="article-footer">
+										<Chip
+											label={article.category}
+											className="article-category"
+										/>
+										<Typography variant="caption" display="block" gutterBottom>
+											By{" "}
+											{article.author
+												? article.author.username
+												: "Deleted user"}{" "}
+											on {new Date(article.date).toLocaleDateString()}
+										</Typography>
+									</div>
+									<Button
+										component={Link}
+										to={`/articles/${article._id}`}
+										sx={{ marginTop: 2 }}
+										variant="contained"
+										color="primary"
+									>
+										Read More
+									</Button>
+								</CardContent>
+							</Card>
+						);
+					})
+				) : (
+					<Typography>No articles found.</Typography>
+				)}
+			</div>
 		</Container>
 	);
 };

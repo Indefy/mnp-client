@@ -1,97 +1,115 @@
 import React, { useEffect, useState } from "react";
-import axios from "../api/axios";
 import {
 	Container,
 	Typography,
 	Card,
 	CardContent,
-	CardMedia,
 	Chip,
 	Button,
-	Grid,
+	CircularProgress,
+	Alert,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
-import "../scss/components/_articles.scss";
+import { fetchAllArticles } from "../api/api";
 
-function Articles() {
+const Articles = () => {
 	const [articles, setArticles] = useState([]);
-	const [searchResults, setSearchResults] = useState([]);
-	const [searchQuery, setSearchQuery] = useState("");
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
 
 	useEffect(() => {
 		const fetchArticles = async () => {
 			try {
-				const { data } = await axios.get("/articles");
-				console.log("Fetched articles:", data);
-				setArticles(data);
-			} catch (error) {
-				console.error("Error fetching articles:", error);
+				setLoading(true);
+				const fetchedArticles = await fetchAllArticles();
+				console.log("Fetched Articles:", fetchedArticles);
+				setArticles(fetchedArticles);
+			} catch (err) {
+				setError(err.message);
+			} finally {
+				setLoading(false);
 			}
 		};
-
 		fetchArticles();
 	}, []);
 
-	const displayedArticles = searchQuery ? searchResults : articles;
+	if (loading) {
+		return (
+			<Container
+				sx={{
+					marginTop: 4,
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+			>
+				<CircularProgress />
+			</Container>
+		);
+	}
+
+	if (error) {
+		return (
+			<Container sx={{ marginTop: 4 }}>
+				<Alert severity="error">Error: {error}</Alert>
+			</Container>
+		);
+	}
 
 	return (
-		<>
-			<Navbar
-				setSearchResults={setSearchResults}
-				setSearchQuery={setSearchQuery}
-			/>
-			<Container maxWidth="lg" sx={{ marginTop: 4 }}>
-				<Typography variant="h4" gutterBottom>
-					Your News
-				</Typography>
-				<Grid container spacing={3} className="articles-grid">
-					{displayedArticles.length > 0 ? (
-						displayedArticles.map((article) => (
-							<Grid item xs={12} sm={6} md={4} lg={3} key={article._id}>
-								<Card className="article-card">
-									<CardMedia
-										component="img"
-										height="140"
-										image={article.image || "/default-image.jpg"}
-										alt={article.title}
-									/>
-									<CardContent className="article-content">
-										<Typography variant="h5" className="article-title">
-											{article.title}
-										</Typography>
-										<Typography className="article-description" component="p">
-											{article.content}
-										</Typography>
-										<Chip label={article.category} sx={{ marginTop: 1 }} />
+		<Container sx={{ marginTop: 4 }}>
+			<Typography variant="h4" gutterBottom>
+				All Articles
+			</Typography>
+			<div className="articles-container">
+				{articles.length > 0 ? (
+					articles.map((article) => {
+						console.log("Article:", article); // Log full article object
+						console.log("Article Image URL:", article.image);
+						return (
+							<Card key={article._id} className="article-card">
+								<img
+									src={article.image || "default-image.jpg"}
+									alt={article.title}
+									className="article-image"
+								/>
+								<CardContent className="article-content">
+									<Typography variant="h5" gutterBottom>
+										{article.title}
+									</Typography>
+									<Typography paragraph>{article.content}</Typography>
+									<div className="article-footer">
+										<Chip
+											label={article.category}
+											className="article-category"
+										/>
 										<Typography variant="caption" display="block" gutterBottom>
 											By{" "}
-											{article.author && article.author.username
+											{article.author
 												? article.author.username
-												: "deleted user"}{" "}
+												: "Deleted user"}{" "}
 											on {new Date(article.date).toLocaleDateString()}
 										</Typography>
-										<Button
-											component={Link}
-											to={`/articles/${article._id}`}
-											sx={{ marginTop: 2 }}
-											variant="contained"
-											color="primary"
-											className="read-more"
-										>
-											Read More
-										</Button>
-									</CardContent>
-								</Card>
-							</Grid>
-						))
-					) : (
-						<Typography>No articles found.</Typography>
-					)}
-				</Grid>
-			</Container>
-		</>
+									</div>
+									<Button
+										component={Link}
+										to={`/articles/${article._id}`}
+										sx={{ marginTop: 2 }}
+										variant="contained"
+										color="primary"
+									>
+										Read More
+									</Button>
+								</CardContent>
+							</Card>
+						);
+					})
+				) : (
+					<Typography>No articles found.</Typography>
+				)}
+			</div>
+		</Container>
 	);
-}
+};
 
 export default Articles;

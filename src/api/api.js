@@ -11,6 +11,16 @@ export const fetchArticlesByCategory = async (category) => {
 		const response = await axios.get(
 			`/articles?category=${capitalizedCategory}`
 		);
+		return response.data || [];
+	} catch (error) {
+		console.error("Error fetching articles:", error);
+		throw error;
+	}
+};
+
+export const fetchAllArticles = async () => {
+	try {
+		const response = await axios.get(`/articles`);
 		console.log("API Response:", response.data);
 		return response.data || [];
 	} catch (error) {
