@@ -19,6 +19,7 @@ import { useMediaQuery } from "@mui/material";
 import { useDrawer } from "../context/DrawerContext";
 import { fetchArticlesBySearchQuery } from "../api/api";
 
+// Styled component for the search bar container
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
 	borderRadius: theme.shape.borderRadius,
@@ -35,6 +36,7 @@ const Search = styled("div")(({ theme }) => ({
 	},
 }));
 
+// Styled component for the search icon wrapper
 const SearchIconWrapper = styled("div")(({ theme }) => ({
 	padding: theme.spacing(0, 2),
 	height: "100%",
@@ -45,6 +47,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 	justifyContent: "center",
 }));
 
+// Styled component for the input field
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	color: "inherit",
 	"& .MuiInputBase-input": {
@@ -58,6 +61,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
+// Navbar component
 function Navbar({ setSearchResults, setSearchQuery }) {
 	const { user, logout } = useContext(AuthContext);
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -65,14 +69,17 @@ function Navbar({ setSearchResults, setSearchQuery }) {
 	const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 	const { handleDrawerToggle } = useDrawer();
 
+	// Function to handle menu opening
 	const handleMenu = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
 
+	// Function to handle menu closing
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
 
+	//Handling the search function for filtering the categories by the searched terms
 	const handleSearchChange = async (event) => {
 		const query = event.target.value;
 		setSearchInput(query);

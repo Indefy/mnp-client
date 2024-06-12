@@ -1,6 +1,7 @@
 import React from "react";
 import "../scss/components/_article-card.scss";
 
+// Component for displaying individual article card
 const ArticleCard = ({ article }) => {
 	return (
 		<div className="article-card">

@@ -22,6 +22,7 @@ function ArticleDetail() {
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
+		// Fetch article details by ID
 		const fetchArticle = async () => {
 			try {
 				const { data } = await axios.get(`/articles/${id}`);
@@ -34,7 +35,7 @@ function ArticleDetail() {
 
 		fetchArticle();
 	}, [id]);
-
+	// Handle comment submission
 	const handleCommentSubmit = async (e) => {
 		e.preventDefault();
 		if (!user) {
@@ -58,7 +59,7 @@ function ArticleDetail() {
 			console.error("Error posting comment:", error);
 		}
 	};
-
+	// Handle article like
 	const handleLike = async () => {
 		if (!user) {
 			alert("Please sign in to like the article.");

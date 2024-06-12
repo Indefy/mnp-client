@@ -17,6 +17,7 @@ const Articles = () => {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
+	// Fetch all articles
 	useEffect(() => {
 		const fetchArticles = async () => {
 			try {

@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
+		// Check if there is a valid authentication token on the users's cookies
 		const checkAuthToken = async () => {
 			const token = Cookies.get("authToken");
 			if (token) {

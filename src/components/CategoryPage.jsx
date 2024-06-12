@@ -18,6 +18,7 @@ const CategoryPage = () => {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
+	// Fetch articles by category or all articles if no category is specified
 	useEffect(() => {
 		const fetchArticles = async () => {
 			try {

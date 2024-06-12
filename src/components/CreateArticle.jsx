@@ -35,6 +35,7 @@ function CreateArticle() {
 	const [image, setImage] = useState("");
 	const navigate = useNavigate();
 
+	// Handle form submission to create a new article
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {

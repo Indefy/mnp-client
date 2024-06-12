@@ -17,11 +17,11 @@ function UserProfile() {
 	const { user } = useContext(AuthContext);
 	const [profile, setProfile] = useState(null);
 	const [username, setUsername] = useState("");
-	const [email, setEmail] = useState("");
 
 	useEffect(() => {
 		const fetchProfile = async () => {
 			if (user) {
+				// Only fetch profile if user is logged in
 				try {
 					const token = Cookies.get("authToken");
 					const { data } = await axios.get(`/users/me`, {
@@ -30,8 +30,7 @@ function UserProfile() {
 						},
 					});
 					setProfile(data);
-					setUsername(data.username || ""); // Ensure controlled input
-					setEmail(data.email || ""); // Ensure controlled input
+					setUsername(data.username || "");
 				} catch (error) {
 					console.error("Error fetching profile:", error);
 				}
@@ -47,7 +46,7 @@ function UserProfile() {
 			const token = Cookies.get("authToken");
 			const { data } = await axios.put(
 				`/users/me`,
-				{ username, email },
+				{ username },
 				{
 					headers: {
 						Authorization: `Bearer ${token}`,

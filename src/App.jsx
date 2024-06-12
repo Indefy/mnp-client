@@ -14,7 +14,10 @@ import { AuthProvider } from "./context/AuthContext";
 import { DrawerProvider } from "./context/DrawerContext";
 import "./scss/main.scss";
 
+// Main application component
 function App() {
+	/* The Routes component from react-router-dom defines different routes for the application, each rendering a specific component. */
+
 	return (
 		<AuthProvider>
 			<DrawerProvider>

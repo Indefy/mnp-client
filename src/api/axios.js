@@ -1,10 +1,12 @@
 import axios from "axios";
 
+// Create an axios instance with base URL and credentials
 const instance = axios.create({
 	baseURL: process.env.REACT_APP_API_BASE_URL,
 	withCredentials: true,
 });
 
+// Interceptor for request logging
 instance.interceptors.request.use(
 	(config) => {
 		console.log("Request:", config);
@@ -16,6 +18,7 @@ instance.interceptors.request.use(
 	}
 );
 
+// Interceptor for response logging
 instance.interceptors.response.use(
 	(response) => {
 		console.log("Response:", response);

@@ -8,6 +8,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./scss/base/theme";
 import "./scss/main.scss";
 
+// Entry point for the React application
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
