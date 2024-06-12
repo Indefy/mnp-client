@@ -1,71 +1,134 @@
-# Getting Started with Create React App
+# Modern News Platform Client
+ Welcome to the MNP Client repository. This project is a web application designed to provide a platform for creating, viewing, and managing articles. Below you'll find a detailed overview of the technologies used, the project structure, and instructions on how to set up and run the project.
+ 
+ 
+## Getting Started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Prerequisites
 
-## Available Scripts
+Make sure you have the following installed on your development machine:
 
-In the project directory, you can run:
+- Node.js
+- npm (Node Package Manager) or yarn
 
-### `npm start`
+### Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone the repository:
+```bash
+git clone https://github.com/Indefy/mnp-client.git
+cd mnp-client
+```
+1. Install the dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ## Running the Project
 
-### `npm test`
+To run the project locally, use the following command:
+```bash
+npm start 
+# or
+yarn start
+```
+This will start the development server and open the application in your default web browser.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## API Integration
+### Axios Setup
 
-### `npm run build`
+The project uses Axios for making HTTP requests. The Axios instance is configured with interceptors for logging requests and responses.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### API Functions
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The project uses the api for interacting with the backend API, including fetching articles, categories, and handling search queries.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Context and State Management
 
-### `npm run eject`
+### AuthContext
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The `AuthContext` provides authentication state and functions for logging in and out. It uses cookies to store the authentication token.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### DrawerContext
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The `DrawerContext` manages the state of the sidebar drawer, including opening and closing it on mobile devices.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Styling
 
-## Learn More
+### SCSS
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The project uses SCSS for styling. The styles are organized into component-specific SCSS files and imported into the main SCSS file (`src/scss/main.scss`).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Material-UI
 
-### Code Splitting
+Material-UI is used for UI components and styling. The theme is configured in `src/scss/base/theme.js`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Routing
 
-### Analyzing the Bundle Size
+The project uses `react-router-dom` for client-side routing. Routes are defined in the `App.jsx` file and include paths for the home page, sign-up, sign-in, article creation, article details, categories, and the user profile.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Components
 
-### Making a Progressive Web App
+### ArticleCard
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Displays a summary of an article, including the title, image, category, date, and author.
 
-### Advanced Configuration
+### ArticleDetails
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Displays the full content of an article, along with comments and a like button.
 
-### Deployment
+### Articles
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Displays a list of all articles.
 
-### `npm run build` fails to minify
+### CategoryPage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# mnp-client
+Displays articles filtered by category.
+
+### CreateArticle
+
+Provides a form for creating a new article.
+
+### Navbar
+
+The main navigation bar, including search functionality and user authentication links.
+
+### Sidebar
+
+A sidebar for navigating between different categories.
+
+### SignIn
+
+A form for signing in.
+
+### SignUp
+
+A form for signing up.
+
+### UserProfile
+
+Displays the user's profile information and allows them to update it.
+
+## Authentication
+
+### SignIn and SignUp
+
+The `SignIn` and `SignUp` components handle user authentication. Upon successful sign-in or sign-up, the user is logged in and redirected to the home page.
+
+### AuthContext
+
+The `AuthContext` manages the authentication state and provides functions for logging in and out. It uses cookies to store the authentication token.
+
+## Development Notes
+
+-   Ensure the backend API is running and accessible at the base URL specified in the environment variables.
+-   The project uses React Context for managing global state (authentication and drawer state).
+-   Material-UI provides a consistent and customizable UI framework.
+-   SCSS is used for styling to enable nesting and other powerful CSS features.
+-   Axios interceptors are configured to log requests and responses for debugging purposes.
+
+For more detailed information about each component and functionality, refer to the code comments and documentation within the respective files.
+
+
+#### Made by Adi B - 2024
