@@ -7,14 +7,17 @@ import {
 	Box,
 	Toolbar,
 	Divider,
+	useMediaQuery,
+	useTheme,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDrawer } from "../context/DrawerContext";
 
-const drawerWidth = 240;
-
-function Sidebar() {
+const Sidebar = () => {
 	const { mobileOpen, handleDrawerToggle } = useDrawer();
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
 	const categories = [
 		"technology",
 		"health",
@@ -22,8 +25,14 @@ function Sidebar() {
 		"entertainment",
 		"sports",
 	];
+	const userLinks = [
+		{ label: "Profile", to: "/profile" },
+		{ label: "My Articles", to: "/my-articles" },
+		{ label: "Create Article", to: "/create-article" },
+		{ label: "Logout", to: "/logout" },
+	];
 
-	const drawer = (
+	const drawerContent = (
 		<div>
 			<Toolbar />
 			<Divider />
@@ -43,6 +52,14 @@ function Sidebar() {
 						/>
 					</ListItem>
 				))}
+				<Divider />
+				{/* Conditionally render user links only on mobile */}
+				{isMobile &&
+					userLinks.map((link) => (
+						<ListItem button key={link.label} component={Link} to={link.to}>
+							<ListItemText primary={link.label} />
+						</ListItem>
+					))}
 			</List>
 		</div>
 	);
@@ -50,7 +67,7 @@ function Sidebar() {
 	return (
 		<Box
 			component="nav"
-			sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+			sx={{ width: { sm: 240 }, flexShrink: { sm: 0 } }}
 			aria-label="mailbox folders"
 		>
 			<Drawer
@@ -62,23 +79,23 @@ function Sidebar() {
 				}}
 				sx={{
 					display: { xs: "block", sm: "none" },
-					"& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+					"& .MuiDrawer-paper": { boxSizing: "border-box", width: 240 },
 				}}
 			>
-				{drawer}
+				{drawerContent}
 			</Drawer>
 			<Drawer
 				variant="permanent"
 				sx={{
 					display: { xs: "none", sm: "block" },
-					"& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+					"& .MuiDrawer-paper": { boxSizing: "border-box", width: 240 },
 				}}
 				open
 			>
-				{drawer}
+				{drawerContent}
 			</Drawer>
 		</Box>
 	);
-}
+};
 
 export default Sidebar;
