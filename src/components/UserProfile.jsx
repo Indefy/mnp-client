@@ -13,11 +13,13 @@ import {
 import { AuthContext } from "../context/AuthContext";
 import Cookies from "js-cookie";
 
+// UserProfile component to display and update user profile page
 function UserProfile() {
 	const { user } = useContext(AuthContext);
 	const [profile, setProfile] = useState(null);
 	const [username, setUsername] = useState("");
 
+	// Fetch user profile if the user is logged in
 	useEffect(() => {
 		const fetchProfile = async () => {
 			if (user) {
@@ -40,6 +42,7 @@ function UserProfile() {
 		fetchProfile();
 	}, [user]);
 
+	// Function to update the user's username in the database
 	const handleUpdate = async (e) => {
 		e.preventDefault();
 		try {

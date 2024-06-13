@@ -2,13 +2,15 @@ import React, { createContext, useState, useEffect } from "react";
 import axios from "../api/axios";
 import Cookies from "js-cookie";
 
+// Creating context for authentication
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+	// State to manage the current authenticated user
 	const [user, setUser] = useState(null);
 
+	// Check if there is a valid authentication token on the users's cookies
 	useEffect(() => {
-		// Check if there is a valid authentication token on the users's cookies
 		const checkAuthToken = async () => {
 			const token = Cookies.get("authToken");
 			if (token) {
@@ -29,6 +31,7 @@ export const AuthProvider = ({ children }) => {
 		checkAuthToken();
 	}, []);
 
+	// Login function to authenticate the user and set the auth token with expiration
 	const login = async (username, password) => {
 		try {
 			const { data, status } = await axios.post(
@@ -59,6 +62,7 @@ export const AuthProvider = ({ children }) => {
 		}
 	};
 
+	// Logout function to clear the auth token and reset the user state
 	const logout = async () => {
 		try {
 			const token = Cookies.get("authToken");
