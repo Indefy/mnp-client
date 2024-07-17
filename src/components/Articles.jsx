@@ -11,7 +11,9 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { fetchAllArticles } from "../api/api";
+import "../scss/components/_articles.scss";
 
+// Articles component, Fetches and displays a list of articles
 const Articles = ({ searchResults, searchQuery }) => {
 	const [articles, setArticles] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -64,7 +66,7 @@ const Articles = ({ searchResults, searchQuery }) => {
 			<Typography variant="h4" gutterBottom>
 				All Articles
 			</Typography>
-			<div className="articles-container">
+			<div className="articles-grid">
 				{articles.length > 0 ? (
 					articles.map((article) => {
 						console.log("Article:", article); // Log full article object

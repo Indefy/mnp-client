@@ -4,11 +4,13 @@
 .article-details {
 	background-color: #fff;
 	border: 1px solid $border-color;
-	border-radius: $spacing-unit;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 	margin-bottom: $spacing-unit * 4;
-	margin-top: 100px;
-	padding: $spacing-unit * 3;
+	padding: $spacing-unit * 2;
+	width: 80%;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
 
 	.article-details__title {
 		font-family: $font-family-heading;
@@ -25,25 +27,13 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-
-		.article-details__author {
-			font-size: 14px;
-			color: $text-color;
-		}
-
-		.article-details__date {
-			font-size: 12px;
-			color: $text-color;
-		}
+		font-size: 14px;
+		color: $text-color;
 	}
 
 	.article-details__comments {
 		margin-top: $spacing-unit * 4;
-
-		.article-details__comment {
-			border-top: 1px solid $border-color;
-			padding-top: $spacing-unit;
-			margin-top: $spacing-unit;
-		}
+		border-top: 1px solid $border-color;
+		padding-top: $spacing-unit;
 	}
 }

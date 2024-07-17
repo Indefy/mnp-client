@@ -9,25 +9,13 @@ import {
 	Select,
 	InputLabel,
 	FormControl,
-	styled,
+	Grid,
 } from "@mui/material";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import "../scss/components/_create-article.scss";
 
-const StyledContainer = styled(Container)(({ theme }) => ({
-	marginTop: theme.spacing(4),
-	backgroundColor: "#fff",
-	boxShadow: theme.shadows[1],
-	padding: theme.spacing(4),
-	maxWidth: 800,
-	margin: "20px auto",
-}));
-
-const StyledButton = styled(Button)(({ theme }) => ({
-	marginTop: theme.spacing(2),
-}));
-
+// CreateArticle component, Allows authenticated users to create a new article
 function CreateArticle() {
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
@@ -35,7 +23,6 @@ function CreateArticle() {
 	const [image, setImage] = useState("");
 	const navigate = useNavigate();
 
-	// Handle form submission to create a new article
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
@@ -58,52 +45,68 @@ function CreateArticle() {
 	};
 
 	return (
-		<StyledContainer>
-			<Typography variant="h4">Create Article</Typography>
-			<form onSubmit={handleSubmit}>
-				<TextField
-					label="Title"
-					value={title}
-					onChange={(e) => setTitle(e.target.value)}
-					required
-					fullWidth
-					margin="normal"
-				/>
-				<TextField
-					label="Content"
-					value={content}
-					onChange={(e) => setContent(e.target.value)}
-					required
-					multiline
-					rows={4}
-					fullWidth
-					margin="normal"
-				/>
-				<TextField
-					label="Image URL"
-					value={image}
-					onChange={(e) => setImage(e.target.value)}
-					fullWidth
-					margin="normal"
-				/>
-				<FormControl fullWidth required margin="normal">
-					<InputLabel>Category</InputLabel>
-					<Select
-						value={category}
-						onChange={(e) => setCategory(e.target.value)}
-					>
-						<MenuItem value="Technology">Technology</MenuItem>
-						<MenuItem value="Health">Health</MenuItem>
-						<MenuItem value="Finance">Finance</MenuItem>
-						<MenuItem value="Sports">Sports</MenuItem>
-						<MenuItem value="Entertainment">Entertainment</MenuItem>
-					</Select>
-				</FormControl>
-				<StyledButton type="submit" variant="contained" color="primary">
-					Create
-				</StyledButton>
+		<Container className="create-article-container">
+			<Typography variant="h4" className="create-article-heading">
+				Create Article
+			</Typography>
+			<form onSubmit={handleSubmit} className="create-article-form">
+				<Grid container spacing={2}>
+					<Grid item xs={12}>
+						<TextField
+							label="Title"
+							value={title}
+							onChange={(e) => setTitle(e.target.value)}
+							required
+							fullWidth
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<TextField
+							label="Content"
+							value={content}
+							onChange={(e) => setContent(e.target.value)}
+							required
+							multiline
+							rows={4}
+							fullWidth
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<TextField
+							label="Image URL"
+							value={image}
+							onChange={(e) => setImage(e.target.value)}
+							fullWidth
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<FormControl fullWidth required>
+							<InputLabel>Category</InputLabel>
+							<Select
+								value={category}
+								onChange={(e) => setCategory(e.target.value)}
+							>
+								<MenuItem value="Technology">Technology</MenuItem>
+								<MenuItem value="Health">Health</MenuItem>
+								<MenuItem value="Finance">Finance</MenuItem>
+								<MenuItem value="Sports">Sports</MenuItem>
+								<MenuItem value="Entertainment">Entertainment</MenuItem>
+							</Select>
+						</FormControl>
+					</Grid>
+					<Grid item xs={12}>
+						<Button
+							type="submit"
+							variant="contained"
+							color="primary"
+							className="create-article-button"
+						>
+							Create
+						</Button>
+					</Grid>
+				</Grid>
 			</form>
-		</StyledContainer>
+		</Container>
 	);
 }
 

@@ -1,10 +1,12 @@
 @import "../pages/_variables";
+
+// Styling for the sidebar
 .sidebar {
 	width: 240px;
 	flex-shrink: 0;
 
 	.MuiDrawer-paper {
-		border: 3px solid purple;
+		border: 3px solid rgb(120, 120, 120);
 		top: 64px;
 		width: 240px;
 		box-sizing: border-box;

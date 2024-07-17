@@ -1,3 +1,4 @@
+// CSS reset file, Reset file configured to normalize default styles across browsers
 *,
 *:before,
 *:after {
@@ -74,9 +75,11 @@ main {
 	display: block;
 }
 
-body {
-	line-height: 1;
-}
+// body {
+// 	line-height: 1;
+// 	background: linear-gradient(to bottom, #232526, #414345);
+// 	color: #fff;
+// }
 
 ol,
 ul {

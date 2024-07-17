@@ -10,10 +10,11 @@ import {
 	ListItem,
 	ListItemText,
 } from "@mui/material";
-import { AuthContext } from "../context/AuthContext.jsx";
+import { AuthContext } from "../context/AuthContext";
 import Cookies from "js-cookie";
 import "../scss/components/_article-details.scss";
 
+// ArticleDetail component: Displays detailed view of an article along with comments and like functionality
 function ArticleDetail() {
 	const { id } = useParams();
 	const { user } = useContext(AuthContext);
@@ -22,7 +23,7 @@ function ArticleDetail() {
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		// Fetch article details by ID
+		// Fetch the article details from the server using the article ID
 		const fetchArticle = async () => {
 			try {
 				const { data } = await axios.get(`/articles/${id}`);
@@ -35,6 +36,7 @@ function ArticleDetail() {
 
 		fetchArticle();
 	}, [id]);
+
 	// Handle comment submission
 	const handleCommentSubmit = async (e) => {
 		e.preventDefault();
@@ -59,6 +61,7 @@ function ArticleDetail() {
 			console.error("Error posting comment:", error);
 		}
 	};
+
 	// Handle article like
 	const handleLike = async () => {
 		if (!user) {
@@ -102,6 +105,13 @@ function ArticleDetail() {
 
 	return (
 		<Container sx={{ paddingTop: "100px" }}>
+			{article.image && (
+				<img
+					src={article.image}
+					alt={article.title}
+					className="article-image"
+				/>
+			)}
 			<Typography variant="h4" gutterBottom>
 				{article.title}
 			</Typography>

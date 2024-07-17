@@ -1,0 +1,72 @@
+@import "../pages/_variables";
+
+// Styling for the user profile page
+.profile-container {
+	background-color: rgba(255, 255, 255, 0.9);
+	padding: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+	text-align: center;
+	width: 80%;
+	max-width: 400px;
+	margin: 0 auto;
+	border-radius: 10px;
+}
+
+.profile-heading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+	font-weight: bold;
+	color: #2c3e50;
+	font-size: 24px;
+}
+
+.edit-icon {
+	margin-left: 10px;
+}
+
+.profile-details {
+	margin-bottom: 20px;
+}
+
+.update-button {
+	cursor: pointer;
+	background-color: $primary-color;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 20px;
+	transition: background-color 0.3s;
+}
+
+.update-button:hover {
+	background-color: lighten($primary-color, 10%);
+}
+
+.profile-stats {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 20px;
+}
+
+.stat-item {
+	background-color: #fff;
+	color: #343a40;
+	padding: 10px 20px;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	flex: 1;
+	margin: 0 5px;
+}
+
+.stat-value {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.stat-label {
+	font-size: 0.875rem;
+	color: #777;
+}
